@@ -28,7 +28,6 @@ app.get("/products", (req, res) => {
     const collection = client.db("onlineStore").collection("products");
     collection
       .find()
-      .limit(5)
       .toArray((err, documents) => {
         if (err) {
           console.log(err);
@@ -54,7 +53,7 @@ app.post("/addProduct", (req, res) => {
   client = new MongoClient(uri, { useNewUrlParser: true });
   client.connect((err) => {
     const collection = client.db("onlineStore").collection("products");
-    collection.insertOne(product, (err, result) => {
+    collection.insert(product, (err, result) => {
       if (err) {
         console.log(err);
         res.status(500).send({ message: err });
